@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChitChat</title>
+    <link rel ="stylesheet" href = "style.css">
+</head>
+<body>
+    <h1>Chat Manager</h1>
+    <form method="GET" action="/chats/new">
+        <button class="newChatBtn" >New Chat +</button>
+    </form>
+     
+    <div class="chat-container">
+        <% for(let chat of chats) {%>
+            <div class="chat">
+                <p>From : <b><i> <%= chat.from %></i></b></p>
+                <div class="msg">
+                    <p><%= chat.msg %></p>
+                    <form style="display: inline-block;" method= "GET" action="/chats/<%= chat._id%>/edit">
+                        <button style = "background-color: rgb(73, 73, 205); color: white; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; width: 100px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1); border-radius: 5px;">Edit</button>
+                    </form>
+                    <form style= "display: inline-block;" method ="POST" action="/chats/<%= chat._id%>/?_method=DELETE">
+                        <button style = "background-color: rgb(189, 41, 31); color: white; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; width: 100px; box-shadow: 0px 4px 15px rgba(0,0,0,0.1); border-radius: 5px;">Delete</button>
+                    </form>
+                </div>
+                <p>Received By<b><i> <%= chat.to %></i></b></p>
+                <hr>
+                <p><%= chat.createdAt.toString().split(" ")[4] %></p>
+                <p><%= chat.createdAt.toString().split(" ").slice(0,4).join(" ") %></p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
+
